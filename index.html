@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>OSINT Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div id="access">
+        <input type="password" id="codeInput" placeholder="Ingrese la clave de acceso">
+        <button onclick="validateCode()">Ingresar</button>
+        <p id="errorMsg"></p>
+    </div>
+
+    <div id="container" style="display:none;">
+        <h1>OSINT MATÍAS</h1>
+        <p class="subtitle">Sistema OSINT para investigación en fuentes abiertas</p>
+
+        <form id="searchForm">
+            <input type="text" id="cedula" placeholder="Cédula">
+            <input type="text" id="nombre" placeholder="Nombres y Apellidos">
+            <input type="text" id="telefono" placeholder="Teléfono Celular">
+            <input type="text" id="correo" placeholder="Correo Electrónico">
+            <input type="text" id="direccion" placeholder="Dirección">
+            <input type="text" id="placa" placeholder="Placa Vehicular">
+            <input type="text" id="empresa" placeholder="Nombre de Empresa">
+            <input type="text" id="dominio" placeholder="Nombre de Dominio">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div id="results">
+            <h2>Resultados de Búsqueda</h2>
+            <div id="output"></div>
+        </div>
+
+        <footer>
+            Diseñado esta aplicación por CBOS. M. P.
+        </footer>
+    </div>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('zamurai.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+        #access {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+        }
+        #access input, #access button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 1em;
+        }
+        #container {
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            border-radius: 10px;
+        }
+        h1 {
+            color: yellow;
+            text-align: center;
+        }
+        .subtitle {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background-color: yellow;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #results {
+            margin-top: 30px;
+        }
+        h2 {
+            color: yellow;
+        }
+        a {
+            color: white;
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: white;
+        }
+    </style>
+
+    <script>
+        function validateCode() {
+            const code = document.getElementById('codeInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            if (code === 'matias2025') {
+                document.getElementById('access').style.display = 'none';
+                document.getElementById('container').style.display = 'block';
+            } else {
+                errorMsg.textContent = 'Clave incorrecta. Intente nuevamente.';
+                errorMsg.style.color = 'red';
+            }
+        }
+
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const cedula = document.getElementById('cedula').value.trim();
+            const nombre = document.getElementById('nombre').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const correo = document.getElementById('correo').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const placa = document.getElementById('placa').value.trim();
+            const empresa = document.getElementById('empresa').value.trim();
+            const dominio = document.getElementById('dominio').value.trim();
+
+            let output = '';
+            if (cedula) output += `<p><a href='https://www.registrocivil.gob.ec/' target='_blank'>Buscar Cédula en Registro Civil</a></p>`;
+            if (nombre) output += `<p><a href='https://www.funcionjudicial.gob.ec/' target='_blank'>Buscar Nombre en Función Judicial</a></p>`;
+            if (telefono) output += `<p><a href='https://www.getcontact.com/' target='_blank'>Buscar Teléfono en GetContact</a></p>`;
+            if (correo) output += `<p><a href='https://hunter.io/' target='_blank'>Buscar Correo en Hunter.io</a></p>`;
+            if (direccion) output += `<p><a href='https://www.google.com/maps' target='_blank'>Buscar Dirección en Google Maps</a></p>`;
+            if (placa) output += `<p><a href='https://consultasecuador.com/en-linea/transito/consultar-propietario-vehiculo' target='_blank'>Buscar Placa Vehicular</a></p>`;
+            if (empresa) output += `<p><a href='https://www.supercias.gob.ec/portalscvs/' target='_blank'>Buscar Empresa en Superintendencia</a></p>`;
+            if (dominio) output += `<p><a href='https://who.is/' target='_blank'>Buscar Dominio en Whois</a></p>`;
+
+            document.getElementById('output').innerHTML = output || '<p>No se ingresó ningún dato.</p>';
+        });
+    </script>
+</body>
+</html>
